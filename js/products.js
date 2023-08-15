@@ -2,7 +2,7 @@ const url_autos = "https://japceibal.github.io/emercado-api/cats_products/101.js
 let products = []
 var listContainer = document.getElementById("product-list-container")
 getJSONData(url_autos).then((response) => {
-    document.getElementById('products-subtitle').innerHTML = `Veras aqui todos los productos de la categoria ${response.data.catName}`
+    document.getElementById('products-subtitle').innerHTML = `Veras aqui todos los productos de la categoria <strong>${response.data.catName}</strong>`
     console.log(response.data.products)
     response.data.products.forEach(p => {
         let newElement = document.createElement('div')
