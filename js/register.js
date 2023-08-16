@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         const nom = nombre.value === '';
         const ape = apellido.value === '';
-        const ema = email.value === '';
+        const ema = email.value;
         const term = terminos.checked;
         const contra = passw1.value.length < 6;
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (nom || ape || ema || !term || contra || !emailPattern.test(ema) || (passw1.value !== passw2.value)) {
+    if (nom || ape || ema=== '' || !term || contra || !emailPattern.test(ema) || (passw1.value !== passw2.value)) {
         showAlertError();
     } else {
         window.location.href = "login.html";
