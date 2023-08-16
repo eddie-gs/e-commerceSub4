@@ -5,12 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const logBtn = document.getElementById("regBtn");
 
     logBtn.addEventListener("click", function(event) {
-        event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+        event.preventDefault()
         const ema = email.value;
         const contra = password.value === '';
         const rec = recuerda.checked;
 
-        // Expresión regular para verificar el formato de correo electrónico
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (ema === '' || !emailPattern.test(ema) || contra) {
@@ -23,24 +22,28 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     });
+
+    function iniciarSesion (){
+        sessionStorage.setItem("usuario", email);
+        sessionStorage.setItem("password", password);
+        sessionStorage.setItem("sesionIniciada", "true");
+      
+        console.log("Sesión iniciada correctamente.");
+
+        window.location.href = "index.html";
+      }
+
+      if (sessionStorage.getItem("sesionIniciada") === "true") {
+        const usuarioActual = sessionStorage.getItem("usuario");
+        console.log("Sesión iniciada para el usuario: " + usuarioActual);
+        window.location.href = "index.html";
+      } else {
+        console.log("Sesión no iniciada.");
+      }
+      
+
 });
 
 function showAlertError() {
     document.getElementById("alert-danger").classList.add("show");
 } 
-
-function iniciarSesion() {
-    // Crear una cookie de sesión
-    const nombreUsuario = correo.value; // Cambia esto al nombre del usuario
-    const fechaExpiracion = new Date();
-    fechaExpiracion.setTime(fechaExpiracion.getTime() + (30 * 60 * 1000)); // Caduca en 30 minutos
-
-    document.cookie = `usuario=${nombreUsuario}; expires=${fechaExpiracion.toUTCString()}; path=/`;
-
-    // Redirigir a la página principal u otra ubicación después del inicio de sesión
-    window.location.href = "index.html";
-}
-
-
-
-
