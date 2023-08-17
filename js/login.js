@@ -4,6 +4,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const recuerda = document.getElementById("recuerdame");
     const logBtn = document.getElementById("regBtn");
 
+    if (sessionStorage.getItem("sesionRecordada") === "true" || sessionStorage.getItem("sesionIniciada") === "true") {
+        const usuarioActual = sessionStorage.getItem("usuario");
+        console.log("Sesión iniciada para el usuario: " + usuarioActual);
+        window.location.href = "index.html";
+      } else {
+        console.log("Sesión no iniciada.");
+    }
+
     logBtn.addEventListener("click", function(event) {
         event.preventDefault()
         const ema = email.value;
@@ -15,33 +23,24 @@ document.addEventListener("DOMContentLoaded", function() {
         if (ema === '' || !emailPattern.test(ema) || contra) {
             showAlertError();
         } else {
+            sessionStorage.setItem("sesionIniciada", "true");
+            sessionStorage.setItem("usuario", email.value);
             if (rec) {
                 iniciarSesion();
             } else {
+                
                 window.location.href = "index.html";
             }
         }
     });
 
     function iniciarSesion (){
-        sessionStorage.setItem("usuario", email);
         sessionStorage.setItem("password", password);
-        sessionStorage.setItem("sesionIniciada", "true");
+        sessionStorage.setItem("sesionRecordada", "true");
       
         console.log("Sesión iniciada correctamente.");
-
         window.location.href = "index.html";
-      }
-
-      if (sessionStorage.getItem("sesionIniciada") === "true") {
-        const usuarioActual = sessionStorage.getItem("usuario");
-        console.log("Sesión iniciada para el usuario: " + usuarioActual);
-        window.location.href = "index.html";
-      } else {
-        console.log("Sesión no iniciada.");
-      }
-      
-
+    }
 });
 
 function showAlertError() {
