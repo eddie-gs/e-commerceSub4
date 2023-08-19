@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (rec) {
                 iniciarSesion();
             } else {
-                
                 window.location.href = "index.html";
             }
         }
