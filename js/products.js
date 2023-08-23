@@ -1,4 +1,7 @@
-const url_autos = "https://japceibal.github.io/emercado-api/cats_products/101.json"
+const idCatSeleccionado = localStorage.getItem('catID');
+const urlActualizada = `https://japceibal.github.io/emercado-api/cats_products/${idCatSeleccionado}.json`
+
+
 var productData = []
 var listContainer = document.getElementById("product-list-container")
 const convertToHtmlElem = (p) =>{
@@ -19,7 +22,7 @@ const convertToHtmlElem = (p) =>{
         </div>
     </div>`
 }
-getJSONData(url_autos).then((response) => {
+getJSONData(urlActualizada).then((response) => {
     productData = response
     productData.data.products.forEach(p => {
         let newElement = document.createElement('div')
