@@ -45,6 +45,13 @@ document.getElementById("searchInput").addEventListener("input",(e)=>{
             listContainer.appendChild(newElement)
         }
     })
+    if(listContainer.childNodes.length <= 0){
+        let newElement = document.createElement('h3')
+        newElement.style.opacity = 0
+        newElement.style.transition = "opacity 0.5s"
+        newElement.innerText = `No se hallaron productos con nombre ${searchTerm}`
+        listContainer.appendChild(newElement)
+    }
     listContainer.childNodes.forEach((n)=>{
         setTimeout(()=>{
             console.log(n)
