@@ -35,11 +35,21 @@ getJSONData(urlActualizada).then((response) => {
 })
 
 searchTerm = document.getElementById("searchInput").value.toUpperCase()
+var searchChange = false
+
+setInterval(()=>{
+    if(searchChange){
+        searchTerm = document.getElementById("searchInput").value.toUpperCase()
+        showProductList()
+        searchChange = false
+    }
+},400)
 
 document.getElementById("searchInput").addEventListener("input",(e)=>{
     //console.log(document.getElementById("searchInput").value)
-    searchTerm = document.getElementById("searchInput").value.toUpperCase()
-    showProductList()
+    //searchTerm = document.getElementById("searchInput").value.toUpperCase()
+    //showProductList()
+    searchChange = true
 })
 
 
