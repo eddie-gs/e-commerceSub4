@@ -1,13 +1,8 @@
-<<<<<<< Updated upstream
-const url_autos = "https://japceibal.github.io/emercado-api/cats_products/101.json"
-var productData = []
-=======
-const idCatSeleccionado = localStorage.getItem('catID');
+ const idCatSeleccionado = localStorage.getItem('catID');
 const urlActualizada = `https://japceibal.github.io/emercado-api/cats_products/${idCatSeleccionado}.json`
 var listContainer = document.getElementById("product-list-container")
 
 /*var productData = []*/
->>>>>>> Stashed changes
 var listContainer = document.getElementById("product-list-container")
 const convertToHtmlElem = (p) =>{
     return `<div class="list-group-item list-group-item-action">
@@ -27,12 +22,8 @@ const convertToHtmlElem = (p) =>{
         </div>
     </div>`
 }
-<<<<<<< Updated upstream
-getJSONData(url_autos).then((response) => {
-=======
-/*
+
 getJSONData(urlActualizada).then((response) => {
->>>>>>> Stashed changes
     productData = response
     productData.data.products.forEach(p => {
         let newElement = document.createElement('div')
@@ -52,8 +43,6 @@ document.getElementById("searchInput").addEventListener("input",(e)=>{
 })
 
 
-<<<<<<< Updated upstream
-=======
 const ascendente = "up";
 const descendente = "down";
 const relevancia = "rel";
@@ -199,5 +188,4 @@ document.addEventListener("DOMContentLoaded", function(e){
         showProductList();
     });
 });
->>>>>>> Stashed changes
 
