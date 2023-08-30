@@ -96,7 +96,7 @@ function setCatID(id) {
 }
 
 function showProductList(){
-    listContainer.innerHTML = ""
+    listContainer.innerHTML = "" //Vacia la lista
     currentProductsArray.forEach(p => {
         if (((minCount == undefined) || (minCount != undefined && parseInt(p.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(p.cost) <= maxCount)) &&
@@ -104,7 +104,7 @@ function showProductList(){
             let newElement = document.createElement('div')
             newElement.classList.add("container")
             newElement.style.opacity = 0
-            newElement.style.transition = "opacity 0.2s ease-in"
+            newElement.style.transition = "opacity 0.7s ease-in"
             newElement.innerHTML = convertToHtmlElem(p)
             if(searchTerm != ''){
                 let highlightStart = newElement.getElementsByTagName('h4')[0].innerHTML.toUpperCase().indexOf(searchTerm)
@@ -127,7 +127,7 @@ function showProductList(){
     for (let i = 0; i < listContainer.childNodes.length; i++) {
         setTimeout(()=>{
             listContainer.childNodes[i].style.opacity = 1
-        },200*i)
+        },500*i)
     }
 }
 
