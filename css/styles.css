@@ -5,6 +5,9 @@
   font-family: 'Verdana', serif !important;
 }
 
+.highlighted-search{
+  background-color: yellow;
+}
 .jumbotron .display-4 {
   font-weight: bold;
 }
