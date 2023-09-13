@@ -6,9 +6,9 @@ let ProdDetails = document.getElementById('product-details-container');
 
 //plantilla html para el producto
 const ProdDetailsToHtml = (elem) => {
-return `<div class="container mt-5 mb-5">
+return `<div class="container mt-5 mb-5 no-pad">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-10">
+        <div>
             <div class="card">
                 <div class="row">
                     <div class="col-md-6">
