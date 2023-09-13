@@ -1,5 +1,6 @@
 const idProdSeleccionado = localStorage.getItem('prodID');
 const urlProdDetails = `https://japceibal.github.io/emercado-api/products/${idProdSeleccionado}.json`;
+const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${idProdSeleccionado}.json`;
 
 let ProdDetails = document.getElementById('product-details-container');
 
@@ -26,10 +27,10 @@ return `<div class="container mt-5 mb-5">
                                 <div class="price d-flex flex-row align-items-center"><span class="act-price">${elem.currency}</span> 
                                     <div class="ml-2"> <span>${elem.cost}</span> </div> 
                                 </div> 
-                                <div class="d-flex flex-row small"> <span>${elem.soldCount} Vendidos</span></div>
+                                <div class="d-flex flex-row small"> <span>${elem.soldCount}Vendidos</span></div>
                             </div>
                             <p class="about">${elem.description}</p>
-                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Agregar al carrito</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                         </div>
                     </div>
                 </div>
@@ -58,3 +59,48 @@ getJSONData(urlProdDetails).then((response) => {
     newElement.innerHTML = ProdDetailsToHtml(productDetailsData.data);
     ProdDetails.appendChild(newElement);
 });
+
+const contenedor = document.getElementById('comentarios');
+
+getJSONData(urlComents).then((response) => {
+    comentarios = response;
+    contenedor.innerHTML = '<h3>Comentarios<h3>';
+    console.log(comentarios);
+    comentarios.data.forEach(coment => {
+    contenedor.innerHTML += `
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex flex-start">
+                <div class="w-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-primary mb-0">
+                      ${coment.user}
+                      <span class="text-dark ms-2">${puntuarComentario(coment.score)}</span>
+                    </h6>
+                    <p class="mb-0">${coment.dateTime.split(" ")[0]}</p>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    ${coment.description}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        `;
+    });
+})
+
+function puntuarComentario(puntos){
+    respuesta = ""
+    for (let index = 1; index < 6; index++) {
+        if (index<=puntos) {
+            respuesta += `<span class="fa fa-star checked"></span>`
+        } else {
+            respuesta += `<span class="fa fa-star"></span>`
+        }
+    }
+    return respuesta
+}
