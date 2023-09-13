@@ -26,10 +26,10 @@ return `<div class="container mt-5 mb-5">
                                 <div class="price d-flex flex-row align-items-center"><span class="act-price">${elem.currency}</span> 
                                     <div class="ml-2"> <span>${elem.cost}</span> </div> 
                                 </div> 
-                                <div class="d-flex flex-row small"> <span>${elem.soldCount}Vendidos</span></div>
+                                <div class="d-flex flex-row small"> <span>${elem.soldCount} Vendidos</span></div>
                             </div>
                             <p class="about">${elem.description}</p>
-                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Agregar al carrito</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                         </div>
                     </div>
                 </div>
