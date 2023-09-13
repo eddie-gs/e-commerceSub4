@@ -20,17 +20,17 @@ return `<div class="container mt-5 mb-5 no-pad">
                     <div class="col-md-6">
                         <div class="product p-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back</span> </div> <i class="fa fa-shopping-cart text-muted"></i>
+                                <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> </div> <i class="fa fa-shopping-cart text-muted"></i>
                             </div>
                             <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">${elem.category}</span>
                                 <h5 class="text-uppercase">${elem.name}</h5>
                                 <div class="price d-flex flex-row align-items-center"><span class="act-price">${elem.currency}</span> 
                                     <div class="ml-2"> <span>${elem.cost}</span> </div> 
                                 </div> 
-                                <div class="d-flex flex-row small"> <span>${elem.soldCount}Vendidos</span></div>
+                                <div class="d-flex flex-row small"> <span>${elem.soldCount} Vendidos</span></div>
                             </div>
                             <p class="about">${elem.description}</p>
-                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Agregar al carrito</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                         </div>
                     </div>
                 </div>
@@ -104,3 +104,49 @@ function puntuarComentario(puntos){
     }
     return respuesta
 }
+
+const botonAgregar = document.getElementById("agregar");
+const botonLimpiar = document.getElementById("limpiar");
+const lista = document.getElementById("comentarios");
+const input = document.getElementById("item");
+const estrellas = document.getElementById("puntuacion");
+
+botonAgregar.addEventListener("click",() => {
+    
+    if (input.value != "") {    
+        if (window.sessionStorage.getItem("text") == null) {
+            valoresActuales = ""
+        } else {
+            valoresActuales = window.sessionStorage.getItem("text");
+        }
+        a_guardar = input.value
+        estrellasTotales = puntuarComentario(estrellas.value)
+        window.sessionStorage.setItem("text", valoresActuales + a_guardar + estrellasTotales)
+        contenedor.innerHTML += `
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex flex-start">
+              <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-primary mb-0">
+                    ${sessionStorage.getItem("usuario")}
+                    <span class="text-dark ms-2">${estrellasTotales}</span>
+                  </h6>
+                  <p class="mb-0">${new Date().toISOString().split("T")[0]}</p>
+                </div>
+                <div class="d-flex align-items-center">
+                  ${input.value}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      `
+        input.value = "";
+    };
+});
+
+lista.innerHTML = sessionStorage.getItem("text");
