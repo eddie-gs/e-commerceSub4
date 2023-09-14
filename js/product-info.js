@@ -46,7 +46,17 @@ function change_image(image){
    container.src = image.src;
 }
 document.addEventListener("DOMContentLoaded", function(event) {
-
+  for (let a = 0; a < estrellasInput.length; a++) {
+    estrellasInput[a].addEventListener('mouseover',()=>{
+      actualizarInputEstrellas(estrellasInput[a].dataset.value)
+    })
+    estrellasInput[a].addEventListener('click',()=>{
+      selectedRating = estrellasInput[a].dataset.value
+    })
+    estrellasInput[a].addEventListener('mouseout',()=>{
+      actualizarInputEstrellas(selectedRating)
+    })
+  }
 });
 
 //obtengo los datos del producto, los paso a la plantilla y lo cargo al html
@@ -74,7 +84,7 @@ getJSONData(urlComents).then((response) => {
                   <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="text-primary mb-0">
                       ${coment.user}
-                      <span class="text-dark ms-2">${puntuarComentario(coment.score)}</span>
+                      <span class="text-dark ms-2">${getEstrellasHTML(coment.score)}</span>
                     </h6>
                     <p class="mb-0">${coment.dateTime.split(" ")[0]}</p>
                   </div>
@@ -92,7 +102,8 @@ getJSONData(urlComents).then((response) => {
     });
 })
 
-function puntuarComentario(puntos){
+
+function getEstrellasHTML(puntos){
     respuesta = ""
     for (let index = 1; index < 6; index++) {
         if (index<=puntos) {
@@ -108,7 +119,21 @@ const botonAgregar = document.getElementById("agregar");
 const botonLimpiar = document.getElementById("limpiar");
 const lista = document.getElementById("comentarios");
 const input = document.getElementById("item");
-const estrellas = document.getElementById("puntuacion");
+let estrellasInput = document.getElementById('rating-control-container').getElementsByClassName('fa-star')
+let selectedRating = 0
+
+const actualizarInputEstrellas = (rating) => {
+  const mensajes = ['Horrible','Malo','Mas o menos','Buen producto', 'Un elissir']
+  for (let i = 0; i < estrellasInput.length; i++) {
+    if(estrellasInput[i].dataset.value <= rating){
+      estrellasInput[i].classList.add('checked')
+    }else{
+      estrellasInput[i].classList.remove('checked')
+    }
+  }
+  document.getElementById('rating-control-message').innerText = rating>=1 ? mensajes[rating-1] : ""
+}
+
 
 botonAgregar.addEventListener("click",() => {
     
@@ -119,7 +144,7 @@ botonAgregar.addEventListener("click",() => {
             valoresActuales = window.sessionStorage.getItem("text");
         }
         a_guardar = input.value
-        estrellasTotales = puntuarComentario(estrellas.value)
+        estrellasTotales = getEstrellasHTML(selectedRating)
         window.sessionStorage.setItem("text", valoresActuales + a_guardar + estrellasTotales)
         contenedor.innerHTML += `
         <div class="card mb-3">
