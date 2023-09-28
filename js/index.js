@@ -18,5 +18,17 @@ document.addEventListener("DOMContentLoaded", function(){
       } else {
         window.location.href = "login.html";
         console.log("Sesión no iniciada.");
-      }
+    }
+
+
+
 });
+
+function logout(){
+    sessionStorage.removeItem("usuario");
+    sessionStorage.removeItem("sesionIniciada");
+    sessionStorage.removeItem("sesionRecordada");
+    sessionStorage.removeItem("password");
+}
+
+document.getElementById("sesion").addEventListener("click", () => logout());
