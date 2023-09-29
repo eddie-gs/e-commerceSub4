@@ -142,7 +142,4 @@ document.addEventListener("DOMContentLoaded", function(e){
     });
 });
 
-document.getElementById("sesion").addEventListener("click", () => {
-    logout();
-    console.log("usa la funcion");
-});
+document.getElementById("sesion").addEventListener("click", () => logout());
