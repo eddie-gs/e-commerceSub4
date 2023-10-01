@@ -111,7 +111,6 @@ getJSONData(urlProdDetails).then((response) => {
 });
 
 
-
 const contenedor = document.getElementById('comentarios');
 //Obtengo los comentarios de la api, los paso a la plantilla HTML y los agrego al html
 getJSONData(urlComents).then((response) => {
