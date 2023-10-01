@@ -42,9 +42,9 @@ const ProdDetailsToHtml = (elem) => {
 
 //Plantilla para los productos relacionados
 const relatedProductsToHtml = (elem) => {
-
+  
   return `<div class="album py-5 bg-light">
-    <div class="container" onclick = "redirigirAProductInfo (${elem.id})">
+    <div class="container" data-id="${elem.id}">
         <div class="row">
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm custom-card cursor-active">
@@ -58,11 +58,6 @@ const relatedProductsToHtml = (elem) => {
     </div>`
 };
 
-//
-function redirigirAProductInfo (item) {
-  localStorage.setItem("idProdRel", item);
-  window.location = "product-info.html"
-};
 
 //Función para cambiar entre imagenes del producto
 function change_image(image){
@@ -87,25 +82,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 });
 
-//obtengo los datos del producto, los paso a la plantilla  y lo cargo al html tanto la información del prodcuto como los productos relacionados
+//Redirige a la pagina que muestra la infromacion del producto seleccionado
+function redirigirAInfoProducto(idProducto) {
+  localStorage.setItem("prodID", idProducto );
+   window.location.href = "product-info.html";
+ };
+ 
+//Obtengo los datos del producto, los paso a la plantilla  y lo cargo al html tanto la información del producto como los productos relacionados. Tambien creamos un evento click para cada producto relacionado que va a redirgir a la página de product-info. 
+
 getJSONData(urlProdDetails).then((response) => {
   productDetailsData = response;
   ProdDetails.innerHTML = ProdDetailsToHtml(productDetailsData.data);
   
   let relatedPro = productDetailsData.data.relatedProducts 
-  
+
    containerRelatedProducts.innerHTML += `<h3> Productos relacionados</h3>`
 
-   for (let index = 0; index < relatedPro.length; index++) {
-    const element = relatedPro[index];
-    containerRelatedProducts.innerHTML += relatedProductsToHtml(element) 
-  };
+   relatedPro.forEach(function(element) {
+    const relatedProductHtml = relatedProductsToHtml(element);
+    containerRelatedProducts.innerHTML += relatedProductHtml;
+  
+    let relatedProductElement = containerRelatedProducts.querySelector(`[data-id="${element.id}"]`);
+    relatedProductElement.addEventListener("click", function() {
+      redirigirAInfoProducto(element.id);
+    });
+  });
 
-  /* let newElement = document.createElement('div');
-  newElement.classList.add("container");
-  newElement.innerHTML = ProdDetailsToHtml(productDetailsData.data);
-  ProdDetails.appendChild(newElement); */
 });
+
+
 
 const contenedor = document.getElementById('comentarios');
 //Obtengo los comentarios de la api, los paso a la plantilla HTML y los agrego al html
@@ -214,4 +219,5 @@ botonAgregar.addEventListener("click",() => {
 });
 
 lista.innerHTML = sessionStorage.getItem("text");
+
 
