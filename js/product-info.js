@@ -93,22 +93,27 @@ function redirigirAInfoProducto(idProducto) {
 getJSONData(urlProdDetails).then((response) => {
   productDetailsData = response;
   ProdDetails.innerHTML = ProdDetailsToHtml(productDetailsData.data);
-  
-  let relatedPro = productDetailsData.data.relatedProducts 
 
-   containerRelatedProducts.innerHTML += `<h3> Productos relacionados</h3>`
+  let relatedPro = productDetailsData.data.relatedProducts;
 
-   relatedPro.forEach(function(element) {
+  containerRelatedProducts.innerHTML += `<h3>Productos relacionados</h3>`;
+
+  relatedPro.forEach(function (element) {
     const relatedProductHtml = relatedProductsToHtml(element);
     containerRelatedProducts.innerHTML += relatedProductHtml;
-  
-    let relatedProductElement = containerRelatedProducts.querySelector(`[data-id="${element.id}"]`);
-    relatedProductElement.addEventListener("click", function() {
-      redirigirAInfoProducto(element.id);
-    });
   });
-
+  
+  // Agregar un event listener al contenedor para la delegación de eventos
+  containerRelatedProducts.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    const relatedProductElement = clickedElement.closest('[data-id]'); // Encuentra el elemento con el atributo data-id
+    if (relatedProductElement) {
+      const productId = relatedProductElement.getAttribute("data-id");
+      redirigirAInfoProducto(productId);
+    }
+  });
 });
+
 
 
 const contenedor = document.getElementById('comentarios');
