@@ -174,3 +174,5 @@ botonAgregar.addEventListener("click",() => {
 });
 
 lista.innerHTML = sessionStorage.getItem("text");
+
+document.getElementById("sesion").addEventListener("click", () => logout());
