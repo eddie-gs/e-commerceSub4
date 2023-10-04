@@ -1,10 +1,12 @@
+// constantes y variables
 const idProdSeleccionado = localStorage.getItem('prodID');
 const urlProdDetails = `https://japceibal.github.io/emercado-api/products/${idProdSeleccionado}.json`;
 const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${idProdSeleccionado}.json`;
 
 let ProdDetails = document.getElementById('product-details-container');
+let containerRelatedProducts = document.getElementById("contenedor-relacionados");
 
-
+//Plantilla para el carrusel 
 const createCarrousel = (elem) => {
   let imageList = elem.images
   let firstImage = imageList.shift()
@@ -35,7 +37,7 @@ const createCarrousel = (elem) => {
           </div>`
 }
 
-//plantilla html para el producto
+/Plantilla html para el producto
 const ProdDetailsToHtml = (elem) => {
   //${elem.images[0]}
   //console.log(createCarrousel(elem))
@@ -64,15 +66,36 @@ const ProdDetailsToHtml = (elem) => {
       </div>
   </div>
 </div>`
-}
+};
 
-//funcion para cambiar entre imagenes del producto
+//Plantilla para los productos relacionados
+const relatedProductsToHtml = (elem) => {
+  
+  return `<div class="album py-5 bg-light">
+    <div class="container" data-id="${elem.id}">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm custom-card cursor-active">
+              <img class="bd-placeholder-img card-img-top" src="${elem.image}"
+                alt="Imgagen representativa de la categoría ${elem.name}">
+              <h3 class="m-3">${elem.name}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`
+};
+
+
+//Función para cambiar entre imagenes del producto
 function change_image(image){
 
     var container = document.getElementById("main-image");
 
    container.src = image.src;
-}
+};
+
+// Función para otorgarle eventos a ciertas acciones del cursor cuando se interactúe con las estrellas
 document.addEventListener("DOMContentLoaded", function(event) {
   for (let a = 0; a < estrellasInput.length; a++) {
     estrellasInput[a].addEventListener('mouseover',()=>{
@@ -87,19 +110,43 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 });
 
-//obtengo los datos del producto, los paso a la plantilla y lo cargo al html
+//Redirige a la pagina que muestra la infromacion del producto seleccionado
+function redirigirAInfoProducto(idProducto) {
+  localStorage.setItem("prodID", idProducto );
+   window.location.href = "product-info.html";
+ };
+ 
+//Obtengo los datos del producto, los paso a la plantilla  y lo cargo al html tanto la información del producto como los productos relacionados. Tambien creamos un evento click para cada producto relacionado que va a redirgir a la página de product-info. 
+
 getJSONData(urlProdDetails).then((response) => {
   productDetailsData = response;
   //console.log(createCarrousel(productDetailsData.data))
-  ProdDetails.innerHTML += ProdDetailsToHtml(productDetailsData.data);
-  /* let newElement = document.createElement('div');
-  newElement.classList.add("container");
-  newElement.innerHTML = ProdDetailsToHtml(productDetailsData.data);
-  ProdDetails.appendChild(newElement); */
+
+  ProdDetails.innerHTML = ProdDetailsToHtml(productDetailsData.data);
+
+  let relatedPro = productDetailsData.data.relatedProducts;
+
+  containerRelatedProducts.innerHTML += `<h3>Productos relacionados</h3>`;
+
+  relatedPro.forEach(function (element) {
+    const relatedProductHtml = relatedProductsToHtml(element);
+    containerRelatedProducts.innerHTML += relatedProductHtml;
+  });
+  
+  // Agregar un event listener al contenedor para la delegación de eventos
+  containerRelatedProducts.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    const relatedProductElement = clickedElement.closest('[data-id]'); // Encuentra el elemento con el atributo data-id
+    if (relatedProductElement) {
+      const productId = relatedProductElement.getAttribute("data-id");
+      redirigirAInfoProducto(productId);
+    }
+  });
 });
 
-const contenedor = document.getElementById('comentarios');
 
+const contenedor = document.getElementById('comentarios');
+//Obtengo los comentarios de la api, los paso a la plantilla HTML y los agrego al html
 getJSONData(urlComents).then((response) => {
     comentarios = response;
     contenedor.innerHTML = '<h3>Comentarios<h3>';
@@ -131,7 +178,7 @@ getJSONData(urlComents).then((response) => {
     });
 })
 
-
+//Obtiene la cantidad de estrellas de un comentario desde la API
 function getEstrellasHTML(puntos){
     respuesta = ""
     for (let index = 1; index < 6; index++) {
@@ -141,8 +188,9 @@ function getEstrellasHTML(puntos){
             respuesta += `<span class="fa fa-star"></span>`
         }
     }
-    return respuesta
-}
+    return respuesta;
+};
+
 
 const botonAgregar = document.getElementById("agregar");
 const botonLimpiar = document.getElementById("limpiar");
@@ -151,6 +199,7 @@ const input = document.getElementById("item");
 let estrellasInput = document.getElementById('rating-control-container').getElementsByClassName('fa-star')
 let selectedRating = 0
 
+//
 const actualizarInputEstrellas = (rating) => {
   const mensajes = ['Horrible','Malo','Mas o menos','Buen producto', 'Un elissir']
   for (let i = 0; i < estrellasInput.length; i++) {
@@ -203,3 +252,6 @@ botonAgregar.addEventListener("click",() => {
 });
 
 lista.innerHTML = sessionStorage.getItem("text");
+
+
+document.getElementById("sesion").addEventListener("click", () => logout());
