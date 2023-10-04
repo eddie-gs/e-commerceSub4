@@ -6,19 +6,47 @@ const urlComents = `https://japceibal.github.io/emercado-api/products_comments/$
 let ProdDetails = document.getElementById('product-details-container');
 let containerRelatedProducts = document.getElementById("contenedor-relacionados");
 
-//Plantilla html para el producto
+//Plantilla para el carrusel 
+const createCarrousel = (elem) => {
+  let imageList = elem.images
+  let firstImage = imageList.shift()
+  console.log([...Array(imageList.length).keys()])
+  return `<div id="carouselExampleIndicators" class="carousel slide carousel-fade " data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              ${[...Array(imageList.length).keys()].map((i) => `<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i+1}" aria-label="Slide ${i+2}"></button>`
+              ).join('\n')}
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="${firstImage}" class="d-block w-100" alt="...">
+              </div>
+              ${imageList.map((i) => `<div class="carousel-item">
+                                          <img src="${i}" class="d-block w-100" alt="...">
+                                      </div>`
+              ).join('\n')}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>`
+}
+
+/Plantilla html para el producto
 const ProdDetailsToHtml = (elem) => {
+  //${elem.images[0]}
+  //console.log(createCarrousel(elem))
   return `<div class="container mt-5 mb-5">
   <div class="row d-flex justify-content-center">
       <div class="card">
           <div class="row">
-              <div class="col-md-6">
-                  <div class="images p-3">
-                      <div class="text-center p-4"> <img id="main-image" src="${elem.images[0]}" width="250" /> </div>
-                      <div class="thumbnail text-center"> <img onclick="change_image(this)" src="${elem.images[1]}" width="70"> <img onclick="change_image(this)" src="${elem.images[2]}" width="70"> <img onclick="change_image(this)" src="${elem.images[3]}" width="70"></div>
-                  </div>
-              </div>
-              <div class="col-md-6">
+              <div class="col-lg-12">
+                  ${createCarrousel(elem)}
                   <div class="product p-4">
                       <div class="d-flex justify-content-between align-items-center">
                           <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i></div> <i class="fa fa-shopping-cart text-muted"></i>
@@ -92,6 +120,8 @@ function redirigirAInfoProducto(idProducto) {
 
 getJSONData(urlProdDetails).then((response) => {
   productDetailsData = response;
+  //console.log(createCarrousel(productDetailsData.data))
+
   ProdDetails.innerHTML = ProdDetailsToHtml(productDetailsData.data);
 
   let relatedPro = productDetailsData.data.relatedProducts;
@@ -113,7 +143,6 @@ getJSONData(urlProdDetails).then((response) => {
     }
   });
 });
-
 
 
 const contenedor = document.getElementById('comentarios');

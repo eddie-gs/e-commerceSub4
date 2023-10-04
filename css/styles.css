@@ -15,6 +15,7 @@
 nav a {
   text-decoration: none;
 }
+
 #rating-control-container:hover{
   cursor: default;
 }
