@@ -37,7 +37,7 @@ const createCarrousel = (elem) => {
           </div>`
 }
 
-/Plantilla html para el producto
+//Plantilla html para el producto
 const ProdDetailsToHtml = (elem) => {
   //${elem.images[0]}
   //console.log(createCarrousel(elem))
