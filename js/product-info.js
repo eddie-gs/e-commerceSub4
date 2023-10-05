@@ -89,7 +89,7 @@ getJSONData(urlComents).then((response) => {
                     <p class="mb-0">${coment.dateTime.split(" ")[0]}</p>
                   </div>
                   <div class="d-flex align-items-center">
-                    ${coment.description}
+                   <p> ${coment.description} <p>
                   </div>
                 </div>
               </div>
