@@ -344,6 +344,11 @@ div {
   padding: 0px;
 }
 
+
+.text-center {
+  text-align: center;
+  vertical-align: middle;
+
 #toggleButton {
   background-color: rgb(60, 60, 60);
 }
