@@ -9,6 +9,8 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
@@ -32,6 +34,9 @@
           <div class="dropdown">
             <li class="nav-item">
               <a class="btn btn-secondary dropdown-toggle" role="button" id="saludo-usuario" data-bs-toggle="dropdown" aria-expanded="false"></a>
+              <button type="button" id="toggleButton" class="btn btn-primary">
+                <i class="fa-solid fa-moon" id="toggleButtonIcon" style="color: #ff8000;"></i>
+            </button>
               <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
                 <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
@@ -44,11 +49,36 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <div class="container" id="product-cart">
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Precio</th>
+            <th class="text-center">Cantidad</th>
+            <th class="text-center">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="elementos">
+          <!-- Aquí se mostrará el contenido JSON -->
+        </tbody>
+      </table>
+    </div>   
+    <form>
+      <div class="container">
+      <hr>
+      <h4>Tipo de envío</h4>
+      <input type="radio" name="envio" id="premium" value="1"> Premium 2 a 5 días (15%) <br>
+      <input type="radio" name="envio" id="express" value="2"> Express 5 a 8 días (7%) <br>
+      <input type="radio" name="envio" id="standard" value="3"> Standard 12 a 15 días (5%) <br>
+      <br><h4>Dirección de envío</h4>
+      <input type="text" id="calle" placeholder="Calle">
+      <input type="number" id="numero" placeholder="Número"><br>
+      <input type="text" id="esquina" placeholder="Esquina">
+      <hr>
     </div>
+  </form> 
   </main>
   <footer class="text-muted">
     <div class="container">
