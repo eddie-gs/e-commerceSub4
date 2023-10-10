@@ -343,3 +343,8 @@ div {
 .no-pad {
   padding: 0px;
 }
+
+.text-center {
+  text-align: center;
+  vertical-align: middle;
+}
