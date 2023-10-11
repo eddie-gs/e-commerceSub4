@@ -10,11 +10,10 @@ let containerRelatedProducts = document.getElementById("contenedor-relacionados"
 const createCarrousel = (elem) => {
   let imageList = elem.images
   let firstImage = imageList.shift()
-  console.log([...Array(imageList.length).keys()])
   return `<div id="carouselExampleIndicators" class="carousel slide carousel-fade " data-bs-ride="carousel">
               <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              ${[...Array(imageList.length).keys()].map((i) => {`<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i+1}" aria-label="Slide ${i+2}"></button>`}).join('\n')}
+              ${[...Array(imageList.length).keys()].map((i) => { return `<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i+1}" aria-label="Slide ${i+2}"></button>`}).join('\n')}
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
