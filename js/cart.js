@@ -1,20 +1,35 @@
-const urlActualizada = `https://japceibal.github.io/emercado-api/user_cart/25801.json`
+const urlActualizada = `https://japceibal.github.io/emercado-api/user_cart/25801.json`;
 
-var listContainer = document.getElementById("product-cart")
+var listContainer = document.getElementById("product-cart");
+let inputCantidad = document.getElementById("inputCantidad");
 
-const convertToHtmlElem = (p) => {
-    const subtotal = p.count * p.unitCost;
+function getSubtotal (cantidad, costo) {
+  return cantidad * costo
+};
+
+//Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
+function updateSubtotal(inputElement, unitCost, currency) {
+  const cantidad = inputElement.value;
+  const subtotal = getSubtotal(cantidad, unitCost);
+  const subtotalElement = inputElement.parentElement.nextElementSibling; 
+  subtotalElement.textContent = `${currency} ${unitCost * cantidad}`;
+};
+
+const convertToHtmlElem = (p) => {  
 
     return `<tr onclick="setProdID(${p.id})">
-              <td><img src="${p.image}" alt="${p.name}" width= 100px ></td>
+              <td><img src="${p.image}" alt="${p.name}" width=100px ></td>
               <td class="text-center">${p.name}</td>
               <td class="text-center">${p.currency} ${p.unitCost}</td>
-              <td class="text-center">${p.count}</td>
-              <td class="text-center" style="font-weight: bold;">${p.currency} ${subtotal}</td>
+              <td class="text-center"><input type="number" class="inputCantidad" value="1" onchange="updateSubtotal(this, ${p.unitCost}, '${p.currency}')"></td>
+              <td class="text-center" style="font-weight: bold;"> ${p.currency} <span class="subtotal">${p.unitCost}</span></td>
             </tr>`;
   };
 
-getJSONData(urlActualizada).then((response) => {
+
+document.addEventListener("DOMContentLoaded", () => {
+  
+  getJSONData(urlActualizada).then((response) => {
     try {
       productData = response
       console.log(productData);
@@ -28,6 +43,8 @@ getJSONData(urlActualizada).then((response) => {
       console.log("no catch",error);
     }
   })
-  
+});
+
+
 
 document.getElementById("sesion").addEventListener("click", () => logout());

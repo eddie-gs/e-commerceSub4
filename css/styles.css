@@ -376,12 +376,7 @@ body.darkmode label {
   color: #fff;
   background-color: #111111;
 }
-
-#calle {
-  width: 35%;
-  margin-right: 1rem;
-}
-#esquina {
-  width: 35%;
-  margin-top: 1rem;
+.inputCantidad {
+  height: 20px;
+  width: 70px;
 }

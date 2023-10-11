@@ -35,7 +35,7 @@ const createCarrousel = (elem) => {
               <span class="visually-hidden">Next</span>
             </button>
           </div>`
-}
+};
 
 //Plantilla html para el producto
 const ProdDetailsToHtml = (elem) => {
