@@ -58,7 +58,7 @@ const ProdDetailsToHtml = (elem) => {
                           <div class="d-flex flex-row small"> <span>${elem.soldCount} Vendidos</span></div>
                       </div>
                       <p class="about">${elem.description}</p>
-                      <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Agregar al carrito</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                      <div class="cart mt-4 align-items-center"> <button data-prodid=${elem.id} id="btn-addCart" class="btn btn-danger text-uppercase mr-2 px-4">Agregar al carrito</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
                   </div>
               </div>
           </div>
@@ -95,7 +95,7 @@ function change_image(image){
 };
 
 // Función para otorgarle eventos a ciertas acciones del cursor cuando se interactúe con las estrellas
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function(event) {  
   for (let a = 0; a < estrellasInput.length; a++) {
     estrellasInput[a].addEventListener('mouseover',()=>{
       actualizarInputEstrellas(estrellasInput[a].dataset.value)
@@ -108,6 +108,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
     })
   }
 });
+
+function agregarAlCarrito(prodDetail){
+  let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
+  if (cart.filter((elem) => elem.id === prodDetail.id).length > 0) { //chequeo si el producto ya esta en el carrito
+    cart.forEach(p => {
+        if (p.id === prodDetail.id) {
+            p.count += 1 //De ser asi lo buscamos por id y solo aumentamos la cantidad
+        }
+    })
+  }else{
+    cart.push({ //en caso contrario construimos el objeto y lo añadimos
+      id: prodDetail.id,
+      name: prodDetail.name,
+      count: 1,
+      unitCost: prodDetail.cost,
+      currency: prodDetail.currency,
+      image: prodDetail.images[0]
+    });
+  }
+  localStorage.setItem("cart",JSON.stringify(cart))
+}
 
 //Redirige a la pagina que muestra la infromacion del producto seleccionado
 function redirigirAInfoProducto(idProducto) {
@@ -122,6 +143,12 @@ getJSONData(urlProdDetails).then((response) => {
   //console.log(createCarrousel(productDetailsData.data))
 
   ProdDetails.innerHTML = ProdDetailsToHtml(productDetailsData.data);
+  botonAgregaralCarrito = document.getElementById('btn-addCart')
+  console.log(botonAgregaralCarrito)
+  botonAgregaralCarrito.addEventListener("click",()=>{
+    console.log(botonAgregaralCarrito.dataset.prodid)
+    agregarAlCarrito(productDetailsData.data)
+  })
 
   let relatedPro = productDetailsData.data.relatedProducts;
 

@@ -1,5 +1,5 @@
 const urlActualizada = `https://japceibal.github.io/emercado-api/user_cart/25801.json`;
-
+const tableBody = document.getElementById("elementos");
 var listContainer = document.getElementById("product-cart");
 let inputCantidad = document.getElementById("inputCantidad");
 
@@ -21,19 +21,23 @@ const convertToHtmlElem = (p) => {
               <td><img src="${p.image}" alt="${p.name}" width=100px ></td>
               <td class="text-center">${p.name}</td>
               <td class="text-center">${p.currency} ${p.unitCost}</td>
-              <td class="text-center"><input type="number" class="inputCantidad" value="1" onchange="updateSubtotal(this, ${p.unitCost}, '${p.currency}')"></td>
+              <td class="text-center"><input type="number" class="inputCantidad" value="${p.count}" onchange="updateSubtotal(this, ${p.unitCost}, '${p.currency}')"></td>
               <td class="text-center" style="font-weight: bold;"> ${p.currency} <span class="subtotal">${p.unitCost}</span></td>
             </tr>`;
   };
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  
+  let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
+  cart.forEach((p)=>{
+    let newRow = document.createElement('tr');
+    newRow.innerHTML = convertToHtmlElem(p);
+    tableBody.appendChild(newRow);
+  })
   getJSONData(urlActualizada).then((response) => {
     try {
       productData = response
       console.log(productData);
-      const tableBody = document.getElementById("elementos");
       productData.data.articles.forEach(p => {
         let newRow = document.createElement('tr');
         newRow.innerHTML = convertToHtmlElem(p);
@@ -43,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("no catch",error);
     }
   })
+
 });
 
 
