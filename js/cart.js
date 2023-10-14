@@ -22,7 +22,7 @@ const convertToHtmlElem = (p) => {
               <td class="text-center">${p.name}</td>
               <td class="text-center">${p.currency} ${p.unitCost}</td>
               <td class="text-center"><input type="number" class="inputCantidad" value="${p.count}" onchange="updateSubtotal(this, ${p.unitCost}, '${p.currency}')"></td>
-              <td class="text-center" style="font-weight: bold;"> ${p.currency} <span class="subtotal">${p.unitCost}</span></td>
+              <td class="text-center" style="font-weight: bold;"> ${p.currency} <span class="subtotal">${p.unitCost * p.count}</span></td>
             </tr>`;
   };
 
