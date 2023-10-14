@@ -29,20 +29,33 @@ const convertToHtmlElem = (p) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
-  cart.forEach((p)=>{
-    let newRow = document.createElement('tr');
-    newRow.innerHTML = convertToHtmlElem(p);
-    tableBody.appendChild(newRow);
-  })
   getJSONData(urlActualizada).then((response) => {
     try {
       productData = response
       console.log(productData);
-      productData.data.articles.forEach(p => {
+      productData.data.articles.forEach(fetchedProd => {
+        if (cart.filter((elem) => elem.id === fetchedProd.id).length > 0) { //chequeo si el producto ya esta en el carrito
+          cart.forEach(p => {
+              if (p.id === fetchedProd.id) {
+                  p.count += fetchedProd.count //De ser asi lo buscamos por id y solo aumentamos la cantidad
+              }
+          })
+        }else{
+          cart.push({ //en caso contrario construimos el objeto y lo añadimos
+            id: fetchedProd.id,
+            name: fetchedProd.name,
+            count: fetchedProd.count,
+            unitCost: fetchedProd.cost,
+            currency: fetchedProd.currency,
+            image: fetchedProd.images[0]
+          });
+        }
+      });
+      cart.forEach((p)=>{
         let newRow = document.createElement('tr');
         newRow.innerHTML = convertToHtmlElem(p);
         tableBody.appendChild(newRow);
-      });
+      })
     } catch (error) {
       console.log("no catch",error);
     }
