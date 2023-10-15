@@ -15,7 +15,10 @@
 nav a {
   text-decoration: none;
 }
-
+.alert{
+  position: fixed !important;
+  z-index: 200;
+}
 #rating-control-container:hover{
   cursor: default;
 }

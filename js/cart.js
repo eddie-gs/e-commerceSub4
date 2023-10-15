@@ -50,7 +50,7 @@ const convertToHtmlElem = (p) => {
               <td class="text-center">${p.currency} ${p.unitCost}</td>
               <td class="text-center"><input type="number" class="inputCantidad" value="${p.count}" onchange="updateSubtotal(this, ${p.unitCost}, '${p.currency}')"></td>
               <td class="text-center" style="font-weight: bold;"> ${p.currency} <span class="subtotal">${p.unitCost * p.count}</span></td>
-              <td class="text-center"><button class="btn btn-outline-danger btn-sm" type="button" onclick="removeItemFromCart(${p.id})" title="Delete"><i class="fa fa-trash"></i></button></td
+              <td class="text-center"><button class="btn btn-outline-danger btn-lg" type="button" onclick="removeItemFromCart(${p.id})" title="Remover articulo del carrito"><i class="fa-regular fa-trash-can fa-lg"></i></button></td
             </tr>`;
   };
 
