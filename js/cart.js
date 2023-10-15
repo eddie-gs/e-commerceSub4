@@ -41,14 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }
           })
         }else{
-          cart.push({ //en caso contrario construimos el objeto y lo añadimos
-            id: fetchedProd.id,
-            name: fetchedProd.name,
-            count: fetchedProd.count,
-            unitCost: fetchedProd.cost,
-            currency: fetchedProd.currency,
-            image: fetchedProd.images[0]
-          });
+          cart.push(fetchedProd);
         }
       });
       cart.forEach((p)=>{
