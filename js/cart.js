@@ -59,3 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.getElementById("sesion").addEventListener("click", () => logout());
+
+var numTarj = document.getElementById("NumTarjeta");
+var codSeg = document.getElementById("CodSeguridad");
+var venc = document.getElementById("vencimiento");
+var cuenta = document.getElementById("NumCuenta");
+
+
+document.getElementById("credito").addEventListener("click", function(e) {
+  cuenta.disabled = true;
+  numTarj.disabled = false;
+  codSeg.disabled = false;
+  venc.disabled = false;
+})
+document.getElementById("transferencia").addEventListener("click", function(e) {
+  numTarj.disabled = true;
+  codSeg.disabled = true;
+  venc.disabled = true;
+  cuenta.disabled = false;
+})
