@@ -95,8 +95,59 @@
               <input type="text" class="form-control" id="esquina" placeholder="Escriba el nombre de la esquina aquí...">
           </div>
         </div>
+        <hr>
+        <div>
+        <h4>Forma de pago</h4>
+        <button id="botonModal" type="button" class="btn btn-link ps-0" data-bs-toggle="modal"
+        data-bs-target="#modalPago">seleccionar</button>
+      <input type="text" class="form-control d-none">
+      <div class="invalid-feedback">
+        Debe seleccionar una forma de pago.
       </div>
-  </form> 
+    </div>
+  </form>
+  <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Forma de pago</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="form-check">
+              <input type="radio" name="pago" id="credito" value="1" class="form-check-input" required>  
+              <label class="form-check-label" for="pago">Tarjeta de crédito</label>
+              <div class="valid-feedback">
+                Seleccionó pagar con tarjeta.
+              </div><br>
+              <hr>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Número de tarjeta</span>
+                <input type="text" class="form-control" id="NumTarjeta" placeholder="Escriba su número de tarjeta">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Código de seguridad</span>
+                <input type="text" class="form-control" id="CodSeguridad" placeholder="Escriba código de seguridad">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Vencimiento (MM/AA)</span>
+                <input type="text" class="form-control" id="vencimiento" placeholder="Escriba su vencimiento">
+              </div>
+              <input type="radio"  name="pago" id="transferencia" value="2" class="form-check-input">
+              <label class="form-check-label" for="pago"> Transferencia bancaria</label>
+              <div class="valid-feedback">
+                Seleccionó pagar por transferencia bancaria.
+              </div><br>
+              <hr>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Número de cuenta</span>
+                <input type="text" class="form-control" id="NumCuenta" placeholder="Escriba su número de cuenta">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> 
   </main>
   <footer class="text-muted">
     <div class="container">
