@@ -16,7 +16,7 @@ nav a {
   text-decoration: none;
 }
 .alert{
-  position: fixed !important;
+  position: absolute !important;
   z-index: 200;
 }
 #rating-control-container:hover{
