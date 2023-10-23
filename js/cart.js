@@ -58,7 +58,20 @@ const convertToHtmlElem = (p) => {
             </tr>`;
   };
 
+const envioPremium = document.getElementById("premium");
+const envioExpress = document.getElementById("express");
+const envioStandard = document.getElementById("standard");
 
+function getSubtotalGeneral () {
+
+};
+
+function getCostoEnvio (subtotalGeneral) {
+  if (envioPremium.checked){
+    console.log(hola);
+    console.log(subtotalGeneral * 0.15)
+  }
+};
 document.addEventListener("DOMContentLoaded", () => {
   getJSONData(urlActualizada).then((response) => {
     try {
@@ -75,7 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
           cart.push(fetchedProd);
         }
       });
+
       refreshCartItems()
+
+      cart.forEach((p)=>{
+        let newRow = document.createElement('tr');
+        newRow.innerHTML = convertToHtmlElem(p);
+        tableBody.appendChild(newRow);
+      })
+
+      getCostoEnvio(25);
+
+
     } catch (error) {
       console.log("no catch",error);
     }
