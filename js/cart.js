@@ -52,7 +52,9 @@ const convertToHtmlElem = (p) => {
 
 const subtotalGeneral = document.getElementById("subtotal-general");
 const costoEnvio = document.getElementById("costo-envio");
-const costoTotal = document.getElementById("total-compra")
+const costoTotal = document.getElementById("total-compra");
+
+costoEnvio.innerHTML = 0;
 
 function getSubtotalGeneral () {
  
@@ -89,13 +91,20 @@ function getCostoEnvio (subtotal) {
       let total = subtotal *  porcentaje;
       
       costoEnvio.innerHTML = total;
-
+      getCostoTotalDeCompra();
     });
   });
 };
 
 function getCostoTotalDeCompra() {
-  
+  let sub = parseFloat(subtotalGeneral.innerHTML);
+  let envio = parseFloat(costoEnvio.innerHTML);
+  console.log(sub);
+  console.log(envio);
+
+  let total = sub + envio;
+  console.log(total);
+  costoTotal.innerHTML = total;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
