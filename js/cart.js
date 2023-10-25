@@ -10,9 +10,9 @@ function getSubtotal (cantidad, costo) {
 
 //Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
 function updateSubtotal(inputElement, id) {
-  const cantidad = inputElement.value;
+  const cantidad = parseInt(inputElement.value);
   for (let i = 0; i < cart.length; i++) {
-    if (cart[i].id === id) {
+    if (cart[i].id === id && cantidad > 0) {
       cart[i].count = cantidad
     }   
   }
@@ -32,15 +32,7 @@ function refreshCartItems(){
 function removeItemFromCart(id){
   let prodInCart = cart.filter((elem) => elem.id === id)
   if (prodInCart.length > 0) {
-    if (prodInCart[0].count <= 1) {
-      cart = cart.filter((elem) => elem.id !== id)
-    }else{
-      cart.forEach(p => {
-        if (p.id === id) {
-            p.count -= 1 //De ser asi lo buscamos por id y solo aumentamos la cantidad
-        }
-      })
-    }
+    cart = cart.filter((elem) => elem.id !== id)
   }
   localStorage.setItem("cart",JSON.stringify(cart))
   refreshCartItems()
@@ -52,7 +44,7 @@ const convertToHtmlElem = (p) => {
               <td><img src="${p.image}" alt="${p.name}" width=100px ></td>
               <td class="text-center">${p.name}</td>
               <td class="text-center">${p.currency} ${p.unitCost}</td>
-              <td class="text-center"><input type="number" class="inputCantidad" value="${p.count}" onchange="updateSubtotal(this, ${p.id})"></td>
+              <td class="text-center"><input type="number" class="inputCantidad" min="1" value="${p.count}" onchange="updateSubtotal(this, ${p.id})"></td>
               <td class="text-center" style="font-weight: bold;"> ${p.currency} <span class="subtotal">${p.unitCost * p.count}</span></td>
               <td class="text-center"><button class="btn btn-outline-danger btn-lg" type="button" onclick="removeItemFromCart(${p.id})" title="Remover articulo del carrito"><i class="fa-regular fa-trash-can fa-lg"></i></button></td
             </tr>`;
