@@ -10,7 +10,7 @@ function getSubtotal (cantidad, costo) {
 
 //Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
 function updateSubtotal(inputElement, id) {
-  const cantidad = inputElement.value;
+  const cantidad = parseInt(inputElement.value);
   for (let i = 0; i < cart.length; i++) {
     if (cart[i].id === id) {
       cart[i].count = cantidad
@@ -72,6 +72,7 @@ function getCostoEnvio (subtotalGeneral) {
     console.log(subtotalGeneral * 0.15)
   }
 };
+
 document.addEventListener("DOMContentLoaded", () => {
   getJSONData(urlActualizada).then((response) => {
     try {
@@ -90,12 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       refreshCartItems()
-
-      cart.forEach((p)=>{
-        let newRow = document.createElement('tr');
-        newRow.innerHTML = convertToHtmlElem(p);
-        tableBody.appendChild(newRow);
-      })
 
       getCostoEnvio(25);
 
