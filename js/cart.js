@@ -3,7 +3,6 @@ const tableBody = document.getElementById("elementos");
 var listContainer = document.getElementById("product-cart");
 let inputCantidad = document.getElementById("inputCantidad");
 let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
-
 //Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
 function updateSubtotal(inputElement, id) {
   const cantidad = parseInt(inputElement.value);
@@ -114,22 +113,26 @@ function getCostoTotalDeCompra() {
 document.addEventListener("DOMContentLoaded", () => {
   getJSONData(urlActualizada).then((response) => {
     try {
-      productData = response;
-      productData.data.articles.forEach(fetchedProd => {
-        if (cart.filter((elem) => elem.id === fetchedProd.id).length > 0) { //chequeo si el producto ya esta en el carrito
-          cart.forEach(p => {
-              if (p.id === fetchedProd.id) {
-                  p.count += fetchedProd.count //De ser asi lo buscamos por id y solo aumentamos la cantidad
-              }
-          })
-        }else{
-          cart.push(fetchedProd);
-        }
-      });
-
+      productData = response
+      console.log(productData);
+      if (localStorage.getItem("agregoCarritoAPI") === null) {
+        productData.data.articles.forEach(fetchedProd => {
+          if (cart.filter((elem) => elem.id === fetchedProd.id).length > 0) { //chequeo si el producto ya esta en el carrito
+            cart.forEach(p => {
+                if (p.id === fetchedProd.id) {
+                    p.count += fetchedProd.count //De ser asi lo buscamos por id y solo aumentamos la cantidad
+                }
+            })
+          }else{
+            cart.push(fetchedProd);
+          }
+        });
+        localStorage.setItem("cart",JSON.stringify(cart))
+        localStorage.setItem("agregoCarritoAPI",true)
+      }
       refreshCartItems()
 
-    } catch (error) {
+    }catch (error) {
       console.log("no catch",error);
     }
   })
