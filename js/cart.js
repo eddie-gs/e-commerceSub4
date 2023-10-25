@@ -60,9 +60,15 @@ function getSubtotalGeneral () {
  
  let costoTotal = 0
  for (let i = 0; i < cart.length; i++) {
+  console.log(cart[i]);
   let objeto = cart[i];
   let cantidad = objeto.count;
-  let costoUnitario = objeto.unitCost;
+  let costoUnitario;
+  if (objeto.currency != 'USD') {
+    costoUnitario = (objeto.unitCost / 40).toFixed(2);
+  } else {
+    costoUnitario = objeto.unitCost;
+  }
   costoTotal += cantidad * costoUnitario
  }
 
@@ -88,7 +94,7 @@ function getCostoEnvio (subtotal) {
         porcentaje = 0.05;
       }
       
-      let total = subtotal *  porcentaje;
+      let total = (subtotal *  porcentaje).toFixed(2);
       
       costoEnvio.innerHTML = total;
       getCostoTotalDeCompra();
@@ -99,19 +105,16 @@ function getCostoEnvio (subtotal) {
 function getCostoTotalDeCompra() {
   let sub = parseFloat(subtotalGeneral.innerHTML);
   let envio = parseFloat(costoEnvio.innerHTML);
-  console.log(sub);
-  console.log(envio);
 
-  let total = sub + envio;
-  console.log(total);
+  let total = (sub + envio).toFixed(2);
+
   costoTotal.innerHTML = total;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   getJSONData(urlActualizada).then((response) => {
     try {
-      productData = response
-      console.log(productData);
+      productData = response;
       productData.data.articles.forEach(fetchedProd => {
         if (cart.filter((elem) => elem.id === fetchedProd.id).length > 0) { //chequeo si el producto ya esta en el carrito
           cart.forEach(p => {
