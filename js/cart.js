@@ -32,15 +32,7 @@ function refreshCartItems(){
 function removeItemFromCart(id){
   let prodInCart = cart.filter((elem) => elem.id === id)
   if (prodInCart.length > 0) {
-    if (prodInCart[0].count <= 1) {
-      cart = cart.filter((elem) => elem.id !== id)
-    }else{
-      cart.forEach(p => {
-        if (p.id === id) {
-            p.count -= 1 //De ser asi lo buscamos por id y solo aumentamos la cantidad
-        }
-      })
-    }
+    cart = cart.filter((elem) => elem.id !== id)
   }
   localStorage.setItem("cart",JSON.stringify(cart))
   refreshCartItems()
