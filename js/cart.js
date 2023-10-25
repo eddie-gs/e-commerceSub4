@@ -59,9 +59,15 @@ function getSubtotalGeneral () {
  
  let costoTotal = 0
  for (let i = 0; i < cart.length; i++) {
+  console.log(cart[i]);
   let objeto = cart[i];
   let cantidad = objeto.count;
-  let costoUnitario = objeto.unitCost;
+  let costoUnitario;
+  if (objeto.currency != 'USD') {
+    costoUnitario = (objeto.unitCost / 40).toFixed(2);
+  } else {
+    costoUnitario = objeto.unitCost;
+  }
   costoTotal += cantidad * costoUnitario
  }
 
@@ -87,7 +93,7 @@ function getCostoEnvio (subtotal) {
         porcentaje = 0.05;
       }
       
-      let total = subtotal *  porcentaje;
+      let total = (subtotal *  porcentaje).toFixed(2);
       
       costoEnvio.innerHTML = total;
       getCostoTotalDeCompra();
@@ -98,11 +104,9 @@ function getCostoEnvio (subtotal) {
 function getCostoTotalDeCompra() {
   let sub = parseFloat(subtotalGeneral.innerHTML);
   let envio = parseFloat(costoEnvio.innerHTML);
-  console.log(sub);
-  console.log(envio);
 
-  let total = sub + envio;
-  console.log(total);
+  let total = (sub + envio).toFixed(2);
+
   costoTotal.innerHTML = total;
 };
 
@@ -128,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       refreshCartItems()
 
-    } catch (error) {
+    }catch (error) {
       console.log("no catch",error);
     }
   })
