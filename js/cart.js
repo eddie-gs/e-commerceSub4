@@ -4,10 +4,6 @@ var listContainer = document.getElementById("product-cart");
 let inputCantidad = document.getElementById("inputCantidad");
 let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
 
-function getSubtotal (cantidad, costo) {
-  return cantidad * costo
-};
-
 //Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
 function updateSubtotal(inputElement, id) {
   const cantidad = parseInt(inputElement.value);
@@ -27,7 +23,11 @@ function refreshCartItems(){
     newRow.innerHTML = convertToHtmlElem(p);
     tableBody.appendChild(newRow);
   })
-}
+  getSubtotalGeneral();
+  getCostoTotalDeCompra();
+
+};
+
 
 function removeItemFromCart(id){
   let prodInCart = cart.filter((elem) => elem.id === id)
@@ -50,6 +50,62 @@ const convertToHtmlElem = (p) => {
             </tr>`;
   };
 
+const subtotalGeneral = document.getElementById("subtotal-general");
+const costoEnvio = document.getElementById("costo-envio");
+const costoTotal = document.getElementById("total-compra");
+
+costoEnvio.innerHTML = 0;
+
+function getSubtotalGeneral () {
+ 
+ let costoTotal = 0
+ for (let i = 0; i < cart.length; i++) {
+  let objeto = cart[i];
+  let cantidad = objeto.count;
+  let costoUnitario = objeto.unitCost;
+  costoTotal += cantidad * costoUnitario
+ }
+
+ subtotalGeneral.innerHTML = costoTotal;
+ getCostoEnvio(costoTotal);
+};
+
+function getCostoEnvio (subtotal) {
+  let porcentaje = 0
+  let radios = document.querySelectorAll('input[type="radio"]');
+  
+  // Agregar un evento change a cada elemento input de tipo radio
+  radios.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      
+      let valor = this.value;
+      
+      if (valor === '1') {
+        porcentaje = 0.15;
+      } else if (valor === '2') {
+        porcentaje = 0.07;
+      } else if (valor === '3') {
+        porcentaje = 0.05;
+      }
+      
+      let total = subtotal *  porcentaje;
+      
+      costoEnvio.innerHTML = total;
+      getCostoTotalDeCompra();
+    });
+  });
+};
+
+function getCostoTotalDeCompra() {
+  let sub = parseFloat(subtotalGeneral.innerHTML);
+  let envio = parseFloat(costoEnvio.innerHTML);
+  console.log(sub);
+  console.log(envio);
+
+  let total = sub + envio;
+  console.log(total);
+  costoTotal.innerHTML = total;
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   getJSONData(urlActualizada).then((response) => {
@@ -67,7 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
           cart.push(fetchedProd);
         }
       });
+
       refreshCartItems()
+
     } catch (error) {
       console.log("no catch",error);
     }

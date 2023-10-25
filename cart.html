@@ -97,7 +97,75 @@
           </div>
         </div>
         <hr>
-        <div>
+        
+                  <h4>Costos</h4>
+          <div class="row">
+              <div class="list-group">
+                  <div class="list-group-item">
+                    <div class="row">
+                        <div class= "col-sm-9 col-md-8 col-lg-9">
+                            <div class="d-flex w-100">
+                                <div class="row flex-column">
+                                    <div class="col">
+                                      <h5>Subtotal</h5>
+                                    </div>
+                                    <div class="col">
+                                    <p>Costo unitario del producto por cantidad</p>
+                                    </div>
+                                </div>                      
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-4 col-lg-3">
+                            <div class="d-flex w-100 flex-row justify-content-end">
+                            <small class="text-muted">USD <span id="subtotal-general"></span></small>
+                            </div>                       
+                        </div>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="row">
+                        <div class= "col-sm-9 col-md-8 col-lg-9">
+                            <div class="d-flex w-100">
+                                <div class="row flex-column">
+                                    <div class="col">
+                                      <h5>Costo de envío</h5>
+                                    </div>
+                                    <div class="col">
+                                    <p>Según el tipo de envío</p>
+                                    </div>
+                                </div>                      
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-4 col-lg-3">
+                            <div class="d-flex w-100 flex-row justify-content-end">
+                            <small class="text-muted">USD <span id="costo-envio"></span></small>
+                            </div>                       
+                        </div>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="row">
+                        <div class= "col-sm-9 col-md-8 col-lg-9">
+                            <div class="d-flex w-100">
+                                <div class="row flex-column">
+                                      <h5>Total ($)</h5>
+                                </div>                      
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-4 col-lg-3">
+                            <div class="d-flex w-100 flex-row justify-content-end">
+                            <small class="font-weight-bold">USD <span id="total-compra"></span></small>
+                            </div>                       
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </form> 
+
+    <div class="container mt-2">
+      <hr>  
         <h4>Forma de pago</h4>
         <button id="botonModal" type="button" class="btn btn-link ps-0" data-bs-toggle="modal"
         data-bs-target="#modalPago">seleccionar</button>
@@ -106,7 +174,7 @@
         Debe seleccionar una forma de pago.
       </div>
     </div>
-  </form>
+  
   <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -149,6 +217,7 @@
         </div>
       </div>
     </div> 
+
   </main>
   <footer class="text-muted">
     <div class="container">
