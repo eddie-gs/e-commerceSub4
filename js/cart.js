@@ -105,3 +105,41 @@ document.getElementById("transferencia").addEventListener("click", function(e) {
   venc.disabled = true;
   cuenta.disabled = false;
 })
+
+
+/* Validación de Compra */
+
+envioRadiobtn = document.querySelectorAll('input[name="envio"]');
+let envioSeleccionado;
+function checkEnvio() {
+for (const radioButton of envioRadiobtn) {
+    if (radioButton.checked) {
+        envioSeleccionado = radioButton.value;
+        break;
+    }
+  } return envioSeleccionado
+}
+
+
+
+function validarCompra() {
+}
+
+
+(function () {
+  'use strict'
+
+  var forms = document.querySelectorAll('.needs-validation')
+
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
