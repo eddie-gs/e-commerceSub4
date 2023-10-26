@@ -2,6 +2,7 @@ const urlActualizada = `https://japceibal.github.io/emercado-api/user_cart/25801
 const tableBody = document.getElementById("elementos");
 var listContainer = document.getElementById("product-cart");
 let inputCantidad = document.getElementById("inputCantidad");
+let formaDePagoSeleccionada = 0;
 let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
 //Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
 function updateSubtotal(inputElement, id) {
@@ -136,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("no catch",error);
     }
   })
-
+  formaDePago()
 });
 
 
@@ -147,6 +148,7 @@ var numTarj = document.getElementById("NumTarjeta");
 var codSeg = document.getElementById("CodSeguridad");
 var venc = document.getElementById("vencimiento");
 var cuenta = document.getElementById("NumCuenta");
+var formaPago = document.getElementById('pago')
 
 
 document.getElementById("credito").addEventListener("click", function(e) {
@@ -161,3 +163,84 @@ document.getElementById("transferencia").addEventListener("click", function(e) {
   venc.disabled = true;
   cuenta.disabled = false;
 })
+
+
+function formaDePago() {
+  let radiosPago = document.querySelectorAll('input[name="pago"]');
+  radiosPago.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      formaDePagoSeleccionada = this.value;
+    }
+  )
+})
+  var myModalEl = document.getElementById('modalPago')
+myModalEl.addEventListener('hidden.bs.modal', function () {
+  if (formaDePagoSeleccionada === '1') {
+    formaPago.innerHTML = "Se seleccionó pagar con tarjeta de crédito.";
+    feedbackMessage.innerHTML = ''
+    } else if (formaDePagoSeleccionada === '2') {
+    formaPago.innerHTML = "Se seleccionó pagar con transferencia bancaria."  ;
+    feedbackMessage.innerHTML = ''
+    } else {
+    formaPago.innerHTML = "No se seleccionó una forma de pago."
+    }
+})
+}
+
+ function validarModal() {
+  const feedbackMessage = document.getElementById('feedbackMessage');
+  console.log(formaDePagoSeleccionada)
+  if (formaDePagoSeleccionada === 0) {
+    feedbackMessage.innerHTML = 'Debes seleccionar una forma de pago';
+    return false;
+  } else {
+    feedbackMessage.innerHTML = '';
+    return true
+  }
+}
+
+function validarCarrito() {
+  const alertaCarrito = document.getElementById('alertaCarritoVacio');
+  if (cart.length == 0) {
+    alertaCarrito.innerHTML = `<div class="alert alert-danger alert-dismissible show fade" role="alert">
+    <div class="text-center"> <strong>Carrito Vacio!</strong> </div>
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
+    return false;
+  } else {
+    alertaCarrito.innerHTML = '';
+    return true
+  }
+}
+
+/*  function compraExitosa() {
+  const exito = document.getElementById('alertExito');
+  document.addEventListener('')
+  exito.innerHTML = `<div class="alert alert-success alert-dismissible show fade" role="alert">
+  <div class="text-center"> <strong> Has comprado con éxito </strong> </div>
+   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`
+} */
+
+(function () {
+  'use strict'
+
+  var forms = document.querySelectorAll('.needs-validation')
+
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        validarModal()
+        validarCarrito()
+        if (!form.checkValidity() || !validarModal() || !validarCarrito()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        else {
+          alert("Has comprado con éxito")
+        }
+
+        form.classList.add('was-validated');
+      }, false)
+    })
+})()
