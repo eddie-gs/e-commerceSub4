@@ -94,13 +94,13 @@ function getCostoEnvio (subtotal) {
         porcentaje = 0.05;
       }
       
-      let total = (subtotal *  porcentaje).toFixed(2);
+let total = (subtotal *  porcentaje).toFixed(2);
       
       costoEnvio.innerHTML = total;
       getCostoTotalDeCompra();
     });
   });
-};
+  };
 
 function getCostoTotalDeCompra() {
   let sub = parseFloat(subtotalGeneral.innerHTML);
