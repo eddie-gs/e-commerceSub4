@@ -109,7 +109,7 @@ function showProductList(){
             let newElement = document.createElement('div')
             newElement.classList.add("container")
             newElement.style.opacity = 0
-            newElement.style.transition = "opacity 0.7s ease-in"
+            newElement.style.transition = "opacity 0.5s ease-in"
             newElement.innerHTML = convertToHtmlElem(p)
             if(searchTerm != ''){
                 let highlightStart = newElement.getElementsByTagName('h4')[0].innerHTML.toUpperCase().indexOf(searchTerm)
@@ -125,14 +125,14 @@ function showProductList(){
     if(listContainer.childNodes.length <= 0){
         let newElement = document.createElement('h3')
         newElement.style.opacity = 0
-        newElement.style.transition = "opacity 0.2s"
+        newElement.style.transition = "opacity 0.1s"
         newElement.innerText = `No se hallaron productos con nombre ${searchTerm}`
         listContainer.appendChild(newElement)
     }
     for (let i = 0; i < listContainer.childNodes.length; i++) {
         setTimeout(()=>{
             listContainer.childNodes[i].style.opacity = 1
-        },500*i)
+        },250*i)
     }
 }
 
