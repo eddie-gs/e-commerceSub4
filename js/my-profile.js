@@ -11,7 +11,18 @@ function guardarCambios(datos) {
 
 document.addEventListener("DOMContentLoaded", () => {
   let emailUsuario = sessionStorage.getItem("usuario"); //toma el email del usuario ingresado
+  if(datosGuardados != {} && datosGuardados.email != emailUsuario){ //vacia el objeto del localstorage si el mail distinto al que esta logueado
+    datosGuardados = {}
+    localStorage.setItem("perfil", JSON.stringify(datosGuardados));
+  }else if(datosGuardados != {}){ //Si es el mail logueado y hay datos guardados actualizamos el value de los campos
+    document.getElementById("nombre1").value = datosGuardados.nombre1
+    document.getElementById("nombre2").value = datosGuardados.nombre2 
+    document.getElementById("apellido1").value = datosGuardados.apellido1;
+    document.getElementById("apellido2").value = datosGuardados.apellido2;
+    document.getElementById("numero").value = datosGuardados.numero;
+  }
   document.getElementById("email").value = emailUsuario; //le asigna al input el email del usario como valor
+
   console.log(datosGuardados);
 });
   //Validacion de los campos del perfil
