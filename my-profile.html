@@ -74,32 +74,39 @@
           <h1>Imagen</h1>
         </div>
         <hr>
-        <form action="" id="perfil" novalidate>
+        <form id="perfil" class="form-check">
           <div class="row">
             <div class="col-6">
-              <label for="firstName">Primer nombre*</label>
-              <input type="text" id="firstName" required>
+              <label class="form-label col-12 mt-2" for="nombre1">Primer nombre*</label>
+              <input class="form-control col-12" type="text" id="nombre1" required>
             </div>
             <div class="col-6">
-              <label for="secondName">Segundo nombre</label>
-              <input type="text" id="secondName">
+              <label class="form-label col-12 mt-2" for="nombre2">Segundo nombre</label>
+              <input class="form-control col-12" type="text" id="nombre2">
             </div>
             <div class="col-6">
-              <label for="firstLastname">Primer apellido*</label>
-              <input type="text" id="firstLastname" required>
+              <label class="form-label col-12 mt-2" for="apellido1">Primer apellido*</label>
+              <input class="form-control col-12" type="text" id="apellido1" required>
             </div>
-            <div class="col-6"><label for="secondLastname">Segundo apellido</label><input type="text"
-                id="secondLastname">
+            <div class="col-6">
+              <label class="form-label col-12 mt-2" for="apellido2">Segundo apellido</label>
+              <input class="form-control col-12" type="text" id="apellido2">
             </div>
-            <div class="col-6"><label for="email">Email*</label><input type="email" required>
+            <div class="col-6">
+              <label class="form-label col-12 mt-2" for="email">Email*</label>
+              <input class="form-control col-12" type="email" id="email" disabled>
             </div>
-            <div class="col-6"><label for="profileImg">Imagen de perfil</label><input type="file" id="profileImg">
+            <div class="col-6">
+              <label class="form-label col-12 mt-2" for="profileImg">Imagen de perfil</label>
+              <input class="form-control col-12" type="file" id="profileImg">
             </div>
-            <div class="col-6"><label for="number">Numero*</label><input type="tel" required>
+            <div class="col-6">
+              <label class="form-label col-12 mt-2" for="numero">Numero*</label>
+              <input class="form-control col-12" type="tel" id="numero" required>
             </div>
           </div>
           <hr>
-          <button class="btn btn-primary" type="submit">Guardar cambios</button>
+          <button class="btn btn-primary col-12" type="submit">Guardar cambios</button>
         </form>
       </div>
     </div>
