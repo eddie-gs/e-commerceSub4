@@ -13,6 +13,17 @@ function guardarCambios(datos) {
 
 document.addEventListener("DOMContentLoaded", () => {
   let emailUsuario = sessionStorage.getItem("usuario"); //toma el email del usuario ingresado
+  
+  imagenPerfilInput.addEventListener("change", (event)=>{ //Utilizamos el evento 'change' que detecta si ha habido algún cambio en el input file donde el usuario cargará la imagen.
+    event.preventDefault(); //Evitamos que tome la foto de perfil por defecto
+    const archivo = imagenPerfilInput.files[0]; // Guardo en una variable los dato de la imagen cargada
+    const lector = new FileReader(); //Guardo en una variable el objeto que leerá la infromación del archivo cargado
+  
+        lector.addEventListener('load', () => { //Utilizamos el evento 'load' para que el objeto 'lector' obtenga los datos del archivo una vez se haya cargado exitosamente.
+            imagenDePerfil.setAttribute('src', lector.result); //Cambia el atributo src predeterminado con la info de la nueva imagen cargada por el usuario.
+        });
+    lector.readAsDataURL(archivo); //Transforma la lectura del archivo en un data URL.
+  });
 
   if(datosGuardados != {} && datosGuardados.email != emailUsuario){ //vacia el objeto del localstorage si el mail distinto al que esta logueado
     datosGuardados = {}
@@ -31,16 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log(datosGuardados);
 
-  imagenPerfilInput.addEventListener("change", (event)=>{ //Utilizamos el evento 'change' que detecta si ha habido algún cambio en el input file donde el usuario cargará la imagen.
-    event.preventDefault(); //Evitamos que tome la foto de perfil por defecto
-    const archivo = imagenPerfilInput.files[0]; // Guardo en una variable los dato de la imagen cargada
-    const lector = new FileReader(); //Guardo en una variable el objeto que leerá la infromación del archivo cargado
   
-        lector.addEventListener('load', () => { //Utilizamos el evento 'load' para que el objeto 'lector' obtenga los datos del archivo una vez se haya cargado exitosamente.
-            imagenDePerfil.setAttribute('src', lector.result); //Cambia el atributo src predeterminado con la info de la nueva imagen cargada por el usuario.
-        });
-    lector.readAsDataURL(archivo); //Transforma la lectura del archivo en un data URL.
-  });
   
 });
 
