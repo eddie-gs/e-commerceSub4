@@ -13,7 +13,7 @@ function guardarCambios(datos) {
 
 document.addEventListener("DOMContentLoaded", () => {
   let emailUsuario = sessionStorage.getItem("usuario"); //toma el email del usuario ingresado
-  
+  document.getElementById("email").value = emailUsuario; //le asigna al input el email del usario como valor
   imagenPerfilInput.addEventListener("change", (event)=>{ //Utilizamos el evento 'change' que detecta si ha habido algún cambio en el input file donde el usuario cargará la imagen.
     event.preventDefault(); //Evitamos que tome la foto de perfil por defecto
     const archivo = imagenPerfilInput.files[0]; // Guardo en una variable los dato de la imagen cargada
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   }
-  document.getElementById("email").value = emailUsuario; //le asigna al input el email del usario como valor
+  
 
   console.log(datosGuardados);
 });
