@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
   document.getElementById("saludo-usuario").innerHTML = sessionStorage.getItem("usuario")
 })
 
+//Función para cerrar sesion
 function logout(){
   sessionStorage.removeItem("usuario");
   sessionStorage.removeItem("sesionIniciada");
