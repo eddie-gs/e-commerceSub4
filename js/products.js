@@ -6,9 +6,11 @@ function setProdID(id) {
     localStorage.setItem("prodID", id);
     window.location = "product-info.html"
 }
-/*var productData = []*/
+
 
 var listContainer = document.getElementById("product-list-container")
+
+//Plantilla para la colocacion de los elementos
 const convertToHtmlElem = (p) =>{
     return `<div onclick="setProdID(${p.id})" class="list-group-item list-group-item-action">
         <div class="row">
@@ -51,9 +53,6 @@ setInterval(()=>{ //Al ver que refrescar la lista en cada tecla apretada generab
 },400)
 
 document.getElementById("searchInput").addEventListener("input",(e)=>{
-    //console.log(document.getElementById("searchInput").value)
-    //searchTerm = document.getElementById("searchInput").value.toUpperCase()
-    //showProductList()
     searchChange = true
 })
 
@@ -67,6 +66,7 @@ let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
+//Función para filtrar elementos segun criterio
 function sortElements(criteria, array){
     let result = [];
     if (criteria === ascendente)

@@ -41,9 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("email").value = emailUsuario; //le asigna al input el email del usario como valor
 
   console.log(datosGuardados);
-
-  
-  
 });
 
   //Validacion de los campos del perfil
