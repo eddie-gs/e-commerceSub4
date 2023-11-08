@@ -383,3 +383,7 @@ body.darkmode label {
   height: 20px;
   width: 70px;
 }
+
+#imagen-perfil {
+  max-width: 100%;
+}
