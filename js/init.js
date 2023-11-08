@@ -76,3 +76,13 @@ window.addEventListener('load', () => {
 document.getElementById("toggleButton").addEventListener("click", () => {
   darkMode();
 });
+
+document.getElementById("perfil").addEventListener("click", () => {
+  if(sessionStorage.getItem("sesionIniciada") === true) {
+    window.location.href = "my-profile.html"
+  } else {
+    window.location.href = "login.html"
+  }
+})
+
+console.log(sessionStorage.getItem("sesionIniciada"))
