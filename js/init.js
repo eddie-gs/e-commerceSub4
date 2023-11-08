@@ -78,7 +78,7 @@ document.getElementById("toggleButton").addEventListener("click", () => {
 });
 
 document.getElementById("perfil").addEventListener("click", () => {
-  if(sessionStorage.getItem("sesionIniciada") === true) {
+  if(sessionStorage.getItem("sesionIniciada") === "true") {
     window.location.href = "my-profile.html"
   } else {
     window.location.href = "login.html"
