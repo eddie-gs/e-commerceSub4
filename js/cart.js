@@ -1,4 +1,4 @@
-const urlActualizada = `https://japceibal.github.io/emercado-api/user_cart/25801.json`;
+const urlActualizada = CART_INFO_URL + `25801` + EXT_TYPE;
 const tableBody = document.getElementById("elementos");
 var listContainer = document.getElementById("product-cart");
 let inputCantidad = document.getElementById("inputCantidad");

@@ -26,13 +26,31 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (!emailPattern.test(ema)) {
             showAlertErrorEmail()
         } else {
-            sessionStorage.setItem("sesionIniciada", "true");
-            sessionStorage.setItem("usuario", email.value);
-            if (rec) {
-                iniciarSesion();
-            } else {
-                window.location.href = "index.html";
-            }
+            datosLogin = {user: email.value, pass: password.value} //creamos el body con email y contraseña para pasar en la request
+            fetch(LOGIN_TOKEN_URL, { //Fetch POST a /login para obtener el token
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosLogin)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('La solicitud POST no fue exitosa');
+                }
+                return response.json();
+            }).then((response)=>{ //Si el fetch fue exitoso iniciamos la sesion
+                    if (response.token) {
+                        sessionStorage.setItem("sesionIniciada", "true");
+                        sessionStorage.setItem("usuario", email.value);
+                        sessionStorage.setItem("token",response.token) //Almacenamos el token en el SessionStorage                    
+                    }
+                    if (rec) {
+                        iniciarSesion();
+                    } else {
+                        window.location.href = "index.html";
+                    }
+            }).catch((err)=> console.log(err))
         }
     });
 
