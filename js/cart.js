@@ -5,38 +5,6 @@ let inputCantidad = document.getElementById("inputCantidad");
 let formaDePagoSeleccionada = 0;
 let cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Suponiendo que ya tienes el token almacenado en sessionStorage
-  const token = sessionStorage.getItem('token');
-  
-  if (!token) {
-    console.log('No hay token disponible. El usuario no ha iniciado sesión.');
-    window.location.href = "login.html";
-    return;
-  }
-
-  // Realiza la solicitud a la ruta /cart al cargar la página
-  fetch(urlActualizada, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'access-token': `${token}`
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('La solicitud GET no fue exitosa');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Respuesta del servidor:', data);
-    // Aquí puedes hacer algo con la respuesta, por ejemplo, actualizar la interfaz de usuario
-  })
-  .catch(error => console.error('Error:', error));
-
-});
-
 //Función para actualizar el subtotal dependiendo de la cantidad que ingrese el usuario.
 function updateSubtotal(inputElement, id) {
   const cantidad = parseInt(inputElement.value);
