@@ -1,7 +1,7 @@
 // constantes y variables
 const idProdSeleccionado = localStorage.getItem("prodID");
-const urlProdDetails = `https://japceibal.github.io/emercado-api/products/${idProdSeleccionado}.json`;
-const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${idProdSeleccionado}.json`;
+const urlProdDetails = PRODUCT_INFO_URL + idProdSeleccionado + EXT_TYPE;
+const urlComents = PRODUCT_INFO_COMMENTS_URL + idProdSeleccionado + EXT_TYPE;
 
 let ProdDetails = document.getElementById("product-details-container");
 let containerRelatedProducts = document.getElementById(

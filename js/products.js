@@ -1,5 +1,5 @@
 const idCatSeleccionado = localStorage.getItem('catID');
-const urlActualizada = `https://japceibal.github.io/emercado-api/cats_products/${idCatSeleccionado}.json`
+const urlActualizada = PRODUCTS_URL + idCatSeleccionado + EXT_TYPE;
 var listContainer = document.getElementById("product-list-container")
 
 function setProdID(id) {
