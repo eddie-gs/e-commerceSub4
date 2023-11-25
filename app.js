@@ -1,9 +1,17 @@
 const express = require("express");
 const mariadb = require("mariadb");
 const jwt = require("jsonwebtoken");
+const mySql = require("mysql");
 const cors = require("cors");
-const SECRET_KEY = "Guiso de Pollo";
+const SECRET_KEY = "";
 
+const pool = mariadb.createPool({
+  host: "localhost",
+  user: "root",
+  password: "1234",
+  database: "cart",
+  connectionLimit: 5,
+});
 const app = express();
 const port = 3000;
 
@@ -21,6 +29,57 @@ app.post('/login', (req,res) => {
     res.status(400).json({error: "Error en la peticion"})
   }
 })
+
+app.post("/cart", async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const response = await conn.query(
+      `INSERT INTO articulos(id, name, count, unitCost, currency) VALUES(?, ?, ?, ?, ?)`,
+      [req.body.id, req.body.name, req.body.count, req.body.unitCost, req.body.currency]
+    );
+
+    res.json({ id: parseInt(response.insertId), ...req.body });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Se rompió el servidor" });
+  } finally {
+    if (conn) conn.release(); //release to pool
+  }
+});
+
+/* app.put("/todo/:id", async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const response = await conn.query(
+      `UPDATE todo SET name=?, description=?, created_at=?, updated_at=?, status=? WHERE id=?`,
+      [req.body.name, req.body.description, req.body.created_at, req.body.updated_at, req.body.status, req.params.id]
+    );
+
+    res.json({ id: req.params.id, ...req.body });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Se rompió el servidor" });
+  } finally {
+    if (conn) conn.release(); //release to pool
+  }
+});
+
+app.delete("/todo/:id", async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const rows = await conn.query("DELETE FROM todo WHERE id=?", [
+      req.params.id,
+    ]);
+    res.json({ message: "Elemento eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Se rompió el servidor" });
+  } finally {
+    if (conn) conn.release(); //release to pool
+  }
+}); */
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
