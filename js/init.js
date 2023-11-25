@@ -51,6 +51,7 @@ function logout(){
   sessionStorage.removeItem("sesionIniciada");
   sessionStorage.removeItem("sesionRecordada");
   sessionStorage.removeItem("password");
+  sessionStorage.removeItem("token");
 }
 
 //DarkMode function

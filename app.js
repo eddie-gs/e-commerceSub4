@@ -18,7 +18,18 @@ app.post('/login', (req,res) => {
      const token = jwt.sign({user, pass},SECRET_KEY)
      res.json({token: token})
   }else{
-    res.status(400).json({error: "Error en la peticion"})
+    res.status(401).json({error: "Usuario y/o contraseña incorrecta"})
+  }
+})
+
+app.use("/cart", async(req,res,next)=>{
+  try {
+    const decoded = jwt.verify(req.headers["access-token"], SECRET_KEY)
+    req.body.username = decoded.user;
+    console.log(decoded);
+    next();
+  } catch (err) {
+    res.status(401).json({message: "Usuario no autorizado"});
   }
 })
 
