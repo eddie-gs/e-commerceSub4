@@ -362,7 +362,7 @@ body.darkmode {
   color: #fff;
 }
 
-body.darkmode h1, body.darkmode h2, body.darkmode h3, body.darkmode h4, body.darkmode h5, body.darkmode p {
+body.darkmode h1, body.darkmode h2, body.darkmode h3, body.darkmode h4, body.darkmode h5, body.darkmode p, body.darkmode td, body.darkmode th {
   color: #fff;
 }
 
