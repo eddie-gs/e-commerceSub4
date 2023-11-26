@@ -370,12 +370,7 @@ body.darkmode div {
   background-color: #111111;
 }
 
-body.darkmode a {
-  color: #fff;
-  background-color: #111111;
-}
-
-body.darkmode label {
+body.darkmode a, body.darkmode label {
   color: #fff;
   background-color: #111111;
 }
@@ -383,7 +378,11 @@ body.darkmode label {
   height: 20px;
   width: 70px;
 }
+body.darkmode input, body.darkmode select, body.darkmode textarea {
+  color: lightgray;
+  background-color: #373738;
 
+}
 #imagen-perfil {
   max-width: 100%;
 }
